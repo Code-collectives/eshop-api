@@ -1,13 +1,12 @@
-// models/advert.mjs
-import mongoose from 'mongoose';
+import { Schema, model } from "mongoose";
 
-const AdvertSchema = new mongoose.Schema({
+const AdvertSchema = new Schema ({
   title: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
   category: { type: String, required: true },
-  imageUrl: { type: String },
+  media: { type: String },
 
-});
+})
 
-export default mongoose.model('Advert', AdvertSchema);
+export const AdvertModel = model('Advert', AdvertSchema);
