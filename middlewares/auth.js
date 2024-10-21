@@ -1,6 +1,5 @@
 // middleware/auth.mjs
 import jwt from 'jsonwebtoken';
-import { config } from '../config.js';
 import User from '../models/user.js';
 
 export const authenticate = (req, res, next) => {
