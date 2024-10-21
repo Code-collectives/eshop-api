@@ -5,7 +5,7 @@ import { addAdvertValidator, updateAdvertValidator } from "../validators/advert.
 export const getAdverts = async (req, res, next) => {
 
     try {
-        const adverts = await AdvertModel.find(req.body);
+        const adverts = await AdvertModel.find();
 
         res.status(200).json(adverts);
     } catch (error) {
@@ -41,7 +41,7 @@ export const addAdvert = async (req, res, next) => {
 
 
         // Create the new advert using the request body
-        const newAdvert = await AdvertModel.create(req.body);
+        const newAdvert = await AdvertModel.create(value);
 
         // Return a success response with the created advert object 
         res.status(201).json({
