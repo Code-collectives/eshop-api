@@ -1,23 +1,30 @@
 // app.mjs
 import express from 'express';
 import mongoose from 'mongoose';
-import authRoutes from './routes/auth.js';
-import advertRoutes from './routes/advert.js';
+import cors from 'cors';
 
+
+
+// Connect to MongoDB
+await mongoose.connect(process.env.MONGO_URI);
+
+
+//Create an express app
 const app = express();
+
+
 
 // Middleware
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use(cors());
+
+
 
 // Routes
-app.use( authRoutes );
-app.use( advertRoutes );
 
-// Connect to MongoDB
 
 
 // Start the server
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+app.listen(3009, () => {
+  console.log('Server running on port 3009');
 });
