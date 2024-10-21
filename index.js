@@ -2,7 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
-import advertRoutes from './routes/adverts.js';
+import advertRoutes from './routes/advert.js';
 
 const app = express();
 
