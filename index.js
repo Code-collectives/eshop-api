@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import advertRouter from './routes/advert.js';
 
 
 
@@ -21,7 +22,7 @@ app.use(cors());
 
 
 // Routes
-
+app.use(advertRouter);
 
 
 // Start the server

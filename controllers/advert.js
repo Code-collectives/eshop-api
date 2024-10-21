@@ -70,10 +70,10 @@ export const updateAdvert = async (req, res, next) => {
 
 
         // // Find the advert by its ID and update it with the provided values, returning the updated document
-        const revisedAdvert = await AdvertModel.findByIdAndUpdate(postId, value, { new: true });
+        const revisedAdvert = await AdvertModel.findByIdAndUpdate(req.params.id, value, { new: true });
 
         // Return a success response with the updated advert object 
-        res.status(201).json({
+        res.status(200).json({
             message: `Your Ad "${revisedAdvert.title}" was updated successfully!`,
             advert: revisedAdvert
         });
