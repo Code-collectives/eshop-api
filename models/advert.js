@@ -1,5 +1,6 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { toJSON } from "@reis/mongoose-to-json";
+// import { required } from "joi";
 
 const AdvertSchema = new Schema ({
   title: { type: String, required: true },
@@ -7,6 +8,7 @@ const AdvertSchema = new Schema ({
   price: { type: Number, required: true },
   category: { type: String, required: true },
   media: { type: String },
+  user : {type: Types.ObjectId, required: true, ref: "User"}
 
 }, {
   timestamps:true

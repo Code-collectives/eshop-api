@@ -19,6 +19,7 @@ export const getAdverts = async (req, res, next) => {
 
 export const getOneAdvert = async (req, res, next) => {
     try {
+        // Fetch one Ad
         const advert = await AdvertModel.findById(req.params.id);
 
         res.status(200).json(advert)
@@ -34,7 +35,10 @@ export const addAdvert = async (req, res, next) => {
 
     try {
         // Validate user input
-        const { error, value } = addAdvertValidator.validate(req.body)
+        const { error, value } = addAdvertValidator.validate({
+            ...req.body,
+            image: req.file?.filename
+        })
 
         if (error) {
             return res.status(422).json(error)
@@ -42,7 +46,10 @@ export const addAdvert = async (req, res, next) => {
 
 
         // Create the new advert using the request body
-        const newAdvert = await AdvertModel.create(value);
+        const newAdvert = await AdvertModel.create({
+            ...value,
+            user: req.auth.id
+        });
 
         // Return a success response with the created advert object 
         res.status(201).json({
@@ -71,7 +78,13 @@ export const updateAdvert = async (req, res, next) => {
 
 
         // // Find the advert by its ID and update it with the provided values, returning the updated document
-        const revisedAdvert = await AdvertModel.findByIdAndUpdate(req.params.id, value, { new: true });
+        const revisedAdvert = await AdvertModel.findOneAndUpdate(
+            {id: req.params.id,
+            user:req.auth.id
+        }, value, { new: true });
+        if (!revisedAdvert) {
+            return res.status(404).json('Ad was not found');
+        }
 
         // Return a success response with the updated advert object 
         res.status(200).json({
@@ -90,11 +103,15 @@ export const updateAdvert = async (req, res, next) => {
 
 
 export const deleteAdvert = async (req, res, next) => {
-
-
     try {
         // Find and delete the advert by its ID
-       await  AdvertModel.findByIdAndDelete(req.params.id);
+     const delAdvert =   await  AdvertModel.findOneAndDelete(
+        {id: req.params.id,
+        user:req.auth.id
+    });
+    if (!delAdvert) {
+        return res.status(404).json('Ad was not found');
+    }
 
        // Respond with a success message after deletion
         res.status(200).json('Ad was deleted!');
@@ -102,4 +119,19 @@ export const deleteAdvert = async (req, res, next) => {
         next(error)
 
     }
+}
+
+
+export const countAdverts = async (req, res, next) => {
+    try {
+        const { filter = "{}" } = req.query;
+        //count adverts in database
+        const count = await AdvertModel.countDocuments (JSON.parse(filter));
+        //Respond to request
+        res.json({count});
+    } catch (error) {
+        next(error);
+        
+    }
+
 }
