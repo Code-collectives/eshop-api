@@ -5,7 +5,8 @@ import { addAdvertValidator, updateAdvertValidator } from "../validators/advert.
 export const getAdverts = async (req, res, next) => {
 
     try {
-        const adverts = await AdvertModel.find();
+        const { filter = "{}", limit = 10, skip = 0 } = req.query;
+        const adverts = await AdvertModel.find(JSON.parse(filter)).limit(limit).skip(skip);
 
         res.status(200).json(adverts);
     } catch (error) {
@@ -22,7 +23,7 @@ export const getOneAdvert = async (req, res, next) => {
 
         res.status(200).json(advert)
     } catch (error) {
-        next(error)
+        next(error);
 
     }
 }
