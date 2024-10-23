@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { addAdvert, countAdverts, deleteAdvert, getAdverts, getOneAdvert, updateAdvert } from "../controllers/advert.js";
+import { AdvertMedia } from "../middlewares/upload.js";
+import { isAuthenticated, hasPermission } from "../middlewares/auth.js";
 
 //Create a router
 const advertRouter = Router();
 
 //Define routes
 
-advertRouter.post('/adverts', addAdvert);
+advertRouter.post('/adverts', isAuthenticated, hasPermission('post_adverts'), AdvertMedia.single('media'),  addAdvert);
 
 advertRouter.get('/adverts', getAdverts);
 
