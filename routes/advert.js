@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addAdvert, deleteAdvert, getAdverts, getOneAdvert, updateAdvert } from "../controllers/advert.js";
+import { addAdvert, countAdverts, deleteAdvert, getAdverts, getOneAdvert, updateAdvert } from "../controllers/advert.js";
 
 //Create a router
 const advertRouter = Router();
@@ -15,6 +15,8 @@ advertRouter.get('/adverts/:id', getOneAdvert);
 advertRouter.patch('/adverts/:id', updateAdvert);
 
 advertRouter.delete('/adverts/:id', deleteAdvert);
+
+advertRouter.get('/adverts/count', countAdverts)
 
 
 

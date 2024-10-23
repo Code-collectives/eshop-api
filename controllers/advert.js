@@ -6,7 +6,11 @@ export const getAdverts = async (req, res, next) => {
 
     try {
         const { filter = "{}", limit = 10, skip = 0 } = req.query;
-        const adverts = await AdvertModel.find(JSON.parse(filter)).limit(limit).skip(skip);
+        const adverts = await AdvertModel
+        .find(JSON.parse(filter))
+        .sort(JSON.parse(sort))
+        .limit(limit)
+        .skip(skip);
 
         res.status(200).json(adverts);
     } catch (error) {
@@ -79,9 +83,10 @@ export const updateAdvert = async (req, res, next) => {
 
         // // Find the advert by its ID and update it with the provided values, returning the updated document
         const revisedAdvert = await AdvertModel.findOneAndUpdate(
-            {id: req.params.id,
+            {_id: req.params.id,
             user:req.auth.id
         }, value, { new: true });
+        
         if (!revisedAdvert) {
             return res.status(404).json('Ad was not found');
         }
@@ -106,7 +111,7 @@ export const deleteAdvert = async (req, res, next) => {
     try {
         // Find and delete the advert by its ID
      const delAdvert =   await  AdvertModel.findOneAndDelete(
-        {id: req.params.id,
+        {_id: req.params.id,
         user:req.auth.id
     });
     if (!delAdvert) {

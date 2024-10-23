@@ -4,6 +4,9 @@ import { multerSaveFilesOrg } from "multer-savefilesorg";
 
 export const AdvertImage = multer ({
     storage: multerSaveFilesOrg({
-        apiAccessToken: process.env.
-    })
-})
+        apiAccessToken: process.env.SAVEFILESORG_API_KEY,
+        relativePath: "/advert-app/*"
+    }),
+    preservePath: true
+});
+
