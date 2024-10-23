@@ -14,9 +14,9 @@ advertRouter.get('/adverts', getAdverts);
 
 advertRouter.get('/adverts/:id', getOneAdvert);
 
-advertRouter.patch('/adverts/:id', updateAdvert);
+advertRouter.patch('/adverts/:id', isAuthenticated, hasPermission('update_adverts'), AdvertMedia.single('media'), updateAdvert);
 
-advertRouter.delete('/adverts/:id', deleteAdvert);
+advertRouter.delete('/adverts/:id', isAuthenticated, hasPermission('delete_adverts'), deleteAdvert);
 
 advertRouter.get('/adverts/count', countAdverts)
 

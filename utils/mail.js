@@ -1,6 +1,6 @@
 import { createTransport} from "nodemailer";
 
-export const mailtransporter = createTransportTransport ({
+export const mailtransporter = createTransport({
   host: 'smtp.gmail.com',
   port: '456',
   secure: true,

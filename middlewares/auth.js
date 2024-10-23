@@ -1,6 +1,9 @@
 import { expressjwt } from "express-jwt";
-// import User from "../models/user.js";
-// import { permissions } from "../utils/rbac.js";
+import { UserModel } from "../models/user.js";
+import { permissions } from "../utils/rbac.js";
+
+
+
 
 export const isAuthenticated = expressjwt({
     secret: process.env.JWT_PRIVATE_KEY,
@@ -11,7 +14,7 @@ export const hasPermission = (action) => {
     return async (req, res, next) => {
         try {
             // Find user from database
-            const user = await User.findById(req.auth.id);
+            const user = await UserModel.findById(req.auth.id);
             // Use the user role to find their permission
             const permission = permissions.find(value => value.role === user.role);
             if (!permission) {

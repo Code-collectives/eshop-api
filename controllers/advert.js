@@ -5,7 +5,7 @@ import { addAdvertValidator, updateAdvertValidator } from "../validators/advert.
 export const getAdverts = async (req, res, next) => {
 
     try {
-        const { filter = "{}", limit = 10, skip = 0 } = req.query;
+        const { filter = "{}", limit = 10, skip = 0, sort ="{}" } = req.query;
         const adverts = await AdvertModel
         .find(JSON.parse(filter))
         .sort(JSON.parse(sort))
@@ -41,7 +41,7 @@ export const addAdvert = async (req, res, next) => {
         // Validate user input
         const { error, value } = addAdvertValidator.validate({
             ...req.body,
-            image: req.file?.filename
+            media: req.file?.filename
         })
 
         if (error) {
@@ -84,7 +84,7 @@ export const updateAdvert = async (req, res, next) => {
         // // Find the advert by its ID and update it with the provided values, returning the updated document
         const revisedAdvert = await AdvertModel.findOneAndUpdate(
             {_id: req.params.id,
-            user:req.auth.id
+            user:req.auth.id    
         }, value, { new: true });
         
         if (!revisedAdvert) {

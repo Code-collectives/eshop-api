@@ -6,8 +6,9 @@ import { registerUser, signInUser } from '../controllers/user.js';
 const userRouter = express.Router();
 
 // User routes
-router.post('users/register', registerUser);
-router.post('users/sign', signInUser);
+userRouter.post('/users/register', registerUser);
+
+userRouter.post('/users/signIn', signInUser);
 
 
 
