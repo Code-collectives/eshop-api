@@ -2,6 +2,7 @@
 
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { toJSON} from '@reis/mongoose-to-json';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -43,5 +44,5 @@ userSchema.pre('save', async function (next) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
 
-
+userSchema.plugin(toJSON);
 export default User;

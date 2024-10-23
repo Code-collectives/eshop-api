@@ -2,6 +2,8 @@ export const permissions = [
     {
         role:'user',
         actions:[
+            'get_profile',
+            'update_profile',
             'get_adverts',
             'get_adverts_id'
             
@@ -15,7 +17,9 @@ export const permissions = [
 'get_adverts',
 'get_adverts_id',
 'delete_adverts',
-'delete_adverts_id'
+'delete_adverts_id',
+'get_profile',
+'update_profile'
 
         ]
     }
