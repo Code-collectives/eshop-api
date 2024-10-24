@@ -15,6 +15,12 @@ export const hasPermission = (action) => {
         try {
             // Find user from database
             const user = await UserModel.findById(req.auth.id);
+
+            // Check if user exists
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+
             // Use the user role to find their permission
             const permission = permissions.find(value => value.role === user.role);
             if (!permission) {
