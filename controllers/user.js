@@ -1,5 +1,6 @@
 import { signInUserValidator, registerUserValidator} from "../validators/user.js";
 import { UserModel } from "../models/user.js";
+import { AdvertModel } from "../models/advert.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { mailtransporter} from "../utils/mail.js"
@@ -95,4 +96,24 @@ res.json('Profile updated!')
   }catch(error){
     next(error);
   }
+}
+
+export const getUserAdverts = async (req, res, next) => {
+  try {
+    const { filter = "{}", limit = 10, skip = 0, sort = "{}" } = req.query;
+    const adverts = await AdvertModel
+      .find({
+        ...JSON.parse(filter),
+        user: req.auth.id
+      })
+      .sort(JSON.parse(sort))
+      .limit(limit)
+      .skip(skip);
+      
+    res.status(200).json(adverts);
+  } catch (error) {
+    next(error)
+
+  }
+
 }
