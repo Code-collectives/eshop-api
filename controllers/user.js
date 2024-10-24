@@ -67,6 +67,35 @@ res.json({
 }
 
 
+
+export const getProfile = async( req, res, next) =>{
+  try{
+    const user = await UserModel
+    .findById(req.auth.id)
+    .select ({ password: false});
+    res.json(user);
+  }catch (error){
+    next(error)
+  };
+}
+
+
+export const updateProfile = async (req, res, next) => {
+  try{
+const { error, value} = updateProfileValidator.validate({
+  ...req.body,
+});
+if(error){
+  return res.status(422).json(error);
+}
+
+await UserModel.findByIdAndUpdate(req.auth.id, value);
+res.json('User profile updated!')
+  }catch(error){
+    next(error);
+  }
+}
+
 /*import User from '../models/user.js';
 import generateToken from '../utils/generateToken.js';
 

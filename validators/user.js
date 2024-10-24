@@ -14,3 +14,8 @@ export const signInUserValidator = Joi.object({
     password: Joi.string()
 
 });
+
+export const updateProfileValidator = Joi.object({
+    businessName: Joi.string(),
+    name: Joi.string()
+})
