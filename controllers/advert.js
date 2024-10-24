@@ -5,7 +5,7 @@ import { addAdvertValidator, updateAdvertValidator } from "../validators/advert.
 export const getAdverts = async (req, res, next) => {
 
     try {
-        const { filter = "{}", limit = 10, skip = 0, sort ="{}" } = req.query;
+        const { filter = "{}", limit = 50, skip = 0, sort ="{}" } = req.query;
         const adverts = await AdvertModel
         .find(JSON.parse(filter))
         .sort(JSON.parse(sort))
