@@ -1,4 +1,4 @@
-import { signInUserValidator, registerUserValidator} from "../validators/user.js";
+import { signInUserValidator, registerUserValidator, getProfile, updateProfile} from "../validators/user.js";
 import { UserModel } from "../models/user.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
