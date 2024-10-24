@@ -1,9 +1,8 @@
-// app.mjs
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import advertRouter from './routes/advert.js';
-// import router from './routes/user.js';
+import userRouter from './routes/user.js';
 
 
 
@@ -26,7 +25,7 @@ app.use(cors());
 
 // Routes
 app.use(advertRouter);
-// app.use(router)
+app.use(userRouter)
 
 // Start the server
 app.listen(3009, () => {
