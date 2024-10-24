@@ -15,7 +15,7 @@ if (error) {
 }
 const user = await UserModel.findOne({ email: value.email})
 if (user) {
-  res.status(409).json('User already exists')
+  res.status(409).json('Account already exists!')
 }
 const hashedPassword = bcrypt.hashSync(value.password, 10);
 await UserModel.create({
@@ -29,7 +29,7 @@ await mailtransporter.sendMail({
   text: 'Account successfully registered!'
 })
 
-res.status(200).json('User successfully registered!')
+res.status(200).json('Account successfully registered!')
   }catch(error){
     next(error)
   }
@@ -44,7 +44,7 @@ export const signInUser = async (req, res, next) =>{
     }
 const user = await UserModel.findOne({ email: value.email})
 if (!user){
-  return res.status(404).json('User does not exist')
+  return res.status(404).json('Account does not exist')
 }
 const correctPassword = bcrypt.compareSync(value.password, user.password)
 if (!correctPassword) {
@@ -56,7 +56,7 @@ const token = jwt.sign(
   { expiresIn: '24h'}
 )
 res.json({
-  message: 'User signed in!',
+  message: 'Sign in successful!',
   accessToken: token
 })
 
@@ -91,7 +91,7 @@ if(error){
 }
 
 await UserModel.findByIdAndUpdate(req.auth.id, value);
-res.json('User profile updated!')
+res.json('Profile updated!')
   }catch(error){
     next(error);
   }
