@@ -6,7 +6,7 @@ export const mailtransporter = createTransport({
   secure: false,
   auth:{
     user: 'gidodoom@gmail.com',
-    pass:'hbjqnvxcherejumf'
+    pass: process.env.MAIL_PASS_KEY
 }, 
 from: ' gidodoom@gmail.com'
 })
