@@ -4,7 +4,9 @@ export const permissions = [
         actions:[
             
             'get_adverts',
-            'get_adverts_id'
+            'get_adverts_id',
+            'get_profile',
+            'update_profile'
             
         ]
     },
@@ -17,6 +19,8 @@ export const permissions = [
 'get_adverts_id',
 'delete_adverts',
 'delete_adverts_id',
+'get_profile',
+'update_profile'
 
 
         ]
