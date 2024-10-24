@@ -29,7 +29,7 @@ await mailtransporter.sendMail({
   text: 'Account successfully registered!'
 })
 
-res.json('User successfully registered!')
+res.status(200).json('User successfully registered!')
   }catch(error){
     next(error)
   }
